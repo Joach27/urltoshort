@@ -31,3 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
+backend/urltoshort/src/main/resources/application.properties
