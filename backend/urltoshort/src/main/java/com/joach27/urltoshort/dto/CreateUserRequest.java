@@ -1,0 +1,4 @@
+package com.joach27.urltoshort.dto;
+
+public record CreateUserRequest(String firstname, String lastname, String email, String passwordHash ) {
+}
