@@ -14,19 +14,21 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 /**
  * Users
  */
 
- @Data 
- @AllArgsConstructor
- @NoArgsConstructor 
- @Entity 
- @Table (name = "users")
+@Getter
+@Setter 
+@AllArgsConstructor
+@NoArgsConstructor 
+@Entity 
+@Table (name = "users")
 public class User {
 
     @Id 

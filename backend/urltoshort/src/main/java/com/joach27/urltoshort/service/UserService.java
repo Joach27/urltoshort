@@ -22,6 +22,7 @@ public class UserService {
         user.setEmail(request.email());
         user.setFirstname(request.firstname());
         user.setLastname(request.lastname());
+        user.setUsername(request.username());
 
         // Pseudo Hash
         String pseudoHash = "HASHED_" + request.password();
@@ -32,6 +33,7 @@ public class UserService {
         return new UserResponse(
             user.getFirstname(), 
             user.getLastname(), 
+            user.getUsername(),
             user.getEmail()
         );
 

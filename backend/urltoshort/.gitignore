@@ -1,0 +1,69 @@
+### --- Secrets / config locale (ne JAMAIS committer) ---
+application.properties
+**/application-local.properties
+.env
+.env.*
+!.env.example
+
+### --- Java / Maven ---
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+replay_pid*
+
+### --- Logs ---
+logs/
+*.log
+
+### --- Node / Frontend ---
+node_modules/
+dist/
+dist-ssr/
+build/
+coverage/
+*.local
+.vite/
+.eslintcache
+.npm/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+### --- Frameworks frontend (au cas où) ---
+.next/
+.nuxt/
+.output/
+.svelte-kit/
+.angular/
+.parcel-cache/
+
+### --- IDE ---
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.classpath
+.project
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+### --- OS ---
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/

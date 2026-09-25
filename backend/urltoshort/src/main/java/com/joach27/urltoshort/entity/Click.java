@@ -1,7 +1,8 @@
 package com.joach27.urltoshort.entity;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.Instant;
 
@@ -9,6 +10,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,11 +26,12 @@ import lombok.AllArgsConstructor;
  * Click
  */
 
- @Entity 
- @Data 
- @AllArgsConstructor 
- @NoArgsConstructor 
- @Table (name = "clicks")
+@Entity 
+@Getter
+@Setter 
+@AllArgsConstructor 
+@NoArgsConstructor 
+@Table (name = "clicks")
 public class Click {
 
     @Id 
@@ -40,9 +44,12 @@ public class Click {
 
     @CreationTimestamp 
     @Column (name = "created_at", updatable = false)
-    private Instant CreatedAt;
+    private Instant createdAt;
 
     private String country;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "device")
     private Device device;
     
 }
