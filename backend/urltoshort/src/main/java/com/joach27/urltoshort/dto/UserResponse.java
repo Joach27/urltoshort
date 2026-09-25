@@ -1,4 +1,4 @@
 package com.joach27.urltoshort.dto;
 
-public record UserResponse(Long id, String firstname, String lastname, String email) {
+public record UserResponse(String firstname, String lastname, String email) {
 }

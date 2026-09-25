@@ -1,0 +1,10 @@
+spring.application.name=urltoshort
+
+# Copie ce fichier vers application.properties et remplace les valeurs.
+# application.properties n'est pas versionné : ne commite jamais les vraies valeurs.
+
+# Alphabet utilisé par SQIDs (garde cette valeur secrète)
+app.sqids.alphabet=CHANGE_ME
+
+# URL de base utilisée pour générer les liens courts
+app.base-url=http://localhost:8080

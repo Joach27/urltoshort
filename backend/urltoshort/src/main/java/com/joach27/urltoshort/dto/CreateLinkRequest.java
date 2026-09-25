@@ -1,4 +1,4 @@
 package com.joach27.urltoshort.dto;
 
-public record CreateLinkRequest(String targetUrl) {
+public record CreateLinkRequest(String targetUrl, Long userId) {
 }

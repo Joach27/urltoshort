@@ -6,15 +6,16 @@ import java.util.ArrayList;
 
 import org.hibernate.annotations.CreationTimestamp;
 import jakarta.persistence.Table;
-import org.springframework.data.annotation.Id;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 /**
@@ -23,6 +24,7 @@ import lombok.Data;
 
  @Data 
  @AllArgsConstructor
+ @NoArgsConstructor 
  @Entity 
  @Table (name = "users")
 public class User {
