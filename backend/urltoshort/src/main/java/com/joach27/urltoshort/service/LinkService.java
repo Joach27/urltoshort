@@ -9,12 +9,16 @@ import com.joach27.urltoshort.repository.ClickRepository;
 import com.joach27.urltoshort.repository.LinkRepository;
 import com.joach27.urltoshort.repository.UserRepository;
 import com.joach27.urltoshort.validator.UrlValidator;
+import com.joach27.urltoshort.analyzer.UserAgentService;
 import com.joach27.urltoshort.dto.CreateLinkRequest;
 import com.joach27.urltoshort.dto.LinkResponse;
 import com.joach27.urltoshort.entity.Click;
+import com.joach27.urltoshort.entity.Device;
 import com.joach27.urltoshort.entity.Link;
 import com.joach27.urltoshort.entity.User;
 import com.joach27.urltoshort.generator.SlugGenerator;
+import com.joach27.urltoshort.ipresolver.GeoIpService;
+import com.joach27.urltoshort.ipresolver.IpAddressService;
 import com.joach27.urltoshort.exception.UrlNotFoundException;
 
 
@@ -25,6 +29,9 @@ public class LinkService {
 	private final SlugGenerator slugGenerator;
 	private final ClickRepository clickRepository;
 	private final UserRepository userRepository;
+	private final UserAgentService userAgentService;
+	private final IpAddressService ipAddressService;
+	private final GeoIpService geoIpService;
 
 	private final String baseUrl;
 
@@ -33,12 +40,18 @@ public class LinkService {
         SlugGenerator slugGenerator, 
         ClickRepository clickRepository,
         UserRepository userRepository,
+        UserAgentService userAgentService,
+        IpAddressService ipAddressService,
+        GeoIpService geoIpService,
 		@Value("${app.base-url}") String baseUrl) 
 	{
 	    this.linkRepository = linkRepository;
 		this.slugGenerator = slugGenerator;
 		this.clickRepository = clickRepository;
 		this.userRepository = userRepository;
+		this.userAgentService = userAgentService;
+		this.ipAddressService = ipAddressService;
+		this.geoIpService = geoIpService;
 		this.baseUrl = baseUrl;
 	}
 
@@ -113,7 +126,7 @@ public class LinkService {
 	}
 
 	// Resolve (go from slug to target URL) and track
-	public String resolveAndTrack(String slug){
+	public String resolveAndTrack(String slug, String rawUserAgent, String xForwardedFor, String remoteAddr){
 	    // Get the id from the slug
 		Long id = slugGenerator.decodeSlug(slug);
 
@@ -121,8 +134,19 @@ public class LinkService {
 		Link link = linkRepository.findById(id)
 		                .orElseThrow(() -> new UrlNotFoundException("URL Not Found"));
 
+		// Get device type & convert to Device Enum Type 
+		Device device = userAgentService.getDeviceType(rawUserAgent);
+
+		// Get client IP Address
+		String clientIpAddress = ipAddressService.getClientIp(xForwardedFor, remoteAddr);
+
+		// Get Country
+		String country = geoIpService.getCountryName(clientIpAddress);
+		
 		// Create clik
 		Click click = new Click();
+		click.setDevice(device); // Set device type
+		click.setCountry(country);
 		click.setLink(link);
 
 		// Save the click 

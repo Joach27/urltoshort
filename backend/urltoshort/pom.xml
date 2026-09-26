@@ -93,6 +93,17 @@
             <artifactId>sqids</artifactId>
             <version>0.1.0</version>
 		</dependency>
+		<dependency>
+            <groupId>nl.basjes.parse.useragent</groupId>
+            <artifactId>yauaa</artifactId>
+            <version>7.31.0</version>
+		</dependency>
+		<dependency>
+            <groupId>com.maxmind.geoip2</groupId>
+            <artifactId>geoip2</artifactId>
+            <version>5.2.0</version>
+		</dependency>
+
 
 
 	</dependencies>

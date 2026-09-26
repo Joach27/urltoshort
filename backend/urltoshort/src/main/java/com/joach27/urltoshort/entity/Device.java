@@ -6,5 +6,6 @@ package com.joach27.urltoshort.entity;
  public enum Device {
      MOBILE,
      TABLET,
-     DESKTOP
+     DESKTOP,
+     UNKNOWN
  }
