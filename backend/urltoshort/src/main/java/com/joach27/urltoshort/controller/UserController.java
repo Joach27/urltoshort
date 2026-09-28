@@ -12,7 +12,7 @@ import com.joach27.urltoshort.dto.UserResponse;
 import com.joach27.urltoshort.service.UserService;
 
 @RestController 
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
 	private final UserService userService;
@@ -22,7 +22,7 @@ public class UserController {
 	}
 
 	// Create user 
-	@PostMapping("/users")
+	@PostMapping
 	public ResponseEntity<UserResponse> createUser(@RequestBody CreateUserRequest request){
         UserResponse response = userService.createUser(request);
         
