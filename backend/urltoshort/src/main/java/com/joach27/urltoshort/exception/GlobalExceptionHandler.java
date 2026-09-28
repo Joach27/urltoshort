@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -54,10 +55,22 @@ public class GlobalExceptionHandler{
         ErrorResponse error = new ErrorResponse(
             LocalDateTime.now(), 
             500, 
-            "Internal Eerver Error", 
+            "Internal Server Error", 
             ex.getMessage()
         );
 
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    // Gère les erreurs de droits d'accès Spring Security (Erreur 403)
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ErrorResponse> handleAccessDenied(AccessDeniedException ex) {
+        ErrorResponse error = new ErrorResponse(
+            LocalDateTime.now(),
+            HttpStatus.FORBIDDEN.value(),
+            "Forbidden",
+            ex.getMessage()
+        );
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
     }
 }
