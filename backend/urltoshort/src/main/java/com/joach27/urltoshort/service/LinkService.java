@@ -1,6 +1,7 @@
 package com.joach27.urltoshort.service;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +29,6 @@ public class LinkService {
 	private final LinkRepository linkRepository;
 	private final SlugGenerator slugGenerator;
 	private final ClickRepository clickRepository;
-	private final UserRepository userRepository;
 	private final UserAgentService userAgentService;
 	private final IpAddressService ipAddressService;
 	private final GeoIpService geoIpService;
@@ -48,7 +48,6 @@ public class LinkService {
 	    this.linkRepository = linkRepository;
 		this.slugGenerator = slugGenerator;
 		this.clickRepository = clickRepository;
-		this.userRepository = userRepository;
 		this.userAgentService = userAgentService;
 		this.ipAddressService = ipAddressService;
 		this.geoIpService = geoIpService;
@@ -95,13 +94,15 @@ public class LinkService {
 		UrlValidator.validateUrl(targetLink);
 
 		// Get the user who's creating the link
-		User user = userRepository.findById(request.userId())
-		            .orElseThrow(() -> new RuntimeException("User Not Found"));
+		// User user = userRepository.findById(request.userId())
+		//             .orElseThrow(() -> new RuntimeException("User Not Found"));
+
+		User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		// Create and save link so we can have id && associate user
 		Link link = new Link();
 		link.setTargetUrl(targetLink);
-		link.setUser(user);
+		link.setUser(currentUser);
 
 		// Save link to get ID and the use it to generate slug
 		linkRepository.save(link);
