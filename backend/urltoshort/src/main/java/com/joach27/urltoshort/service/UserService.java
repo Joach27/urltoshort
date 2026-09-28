@@ -1,5 +1,6 @@
 package com.joach27.urltoshort.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.joach27.urltoshort.dto.CreateUserRequest;
@@ -10,9 +11,11 @@ import com.joach27.urltoshort.repository.UserRepository;
 @Service 
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UserResponse createUser(CreateUserRequest request){
@@ -25,8 +28,8 @@ public class UserService {
         user.setUsername(request.username());
 
         // Pseudo Hash
-        String pseudoHash = "HASHED_" + request.password();
-        user.setPasswordStringHash(pseudoHash);
+        String hashedPassword = passwordEncoder.encode(request.password());
+        user.setPasswordStringHash(hashedPassword);
 
         userRepository.save(user);
 
