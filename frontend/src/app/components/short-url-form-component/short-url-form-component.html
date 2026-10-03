@@ -1,0 +1,13 @@
+<form [formGroup]="shortUrlForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Paste your link here</label>
+    <input type="text" placeholder="Paste link here" formControlName="input">
+    <button type="submit">Submit</button>
+  </div>
+
+  <div>
+    <input type="text" formControlName="result" readonly>
+    <button type="button" (click)="copyResult()">Copy</button>
+  </div>
+
+</form>
