@@ -24,7 +24,7 @@ public class LinkController {
 	}
 
 	// Create a short link
-	@PostMapping
+	@PostMapping("/shorten")
 	public ResponseEntity<LinkResponse> ceateShortLink(@RequestBody CreateLinkRequest request){
 
 	    // Create the short link

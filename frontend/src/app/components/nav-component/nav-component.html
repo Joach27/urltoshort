@@ -1,0 +1,24 @@
+<nav class="bg-gray-50 px-4 pt-4 sm:px-6 sm:pt-6">
+  <div class="mx-auto max-w-5xl border-y border-gray-200 bg-white px-6">
+    <div class="flex items-center justify-between py-4">
+      <a routerLink="/" class="text-lg font-semibold tracking-tight text-blue-600">U2S</a>
+
+      <div class="flex items-center gap-6">
+        <a href="#try" class="text-sm font-medium text-gray-500 transition-colors hover:text-blue-600">Try</a>
+
+        @if (authService.isLoggedIn()) {
+          <!-- Loged in -->
+          <a routerLink="/dashboard" class="text-sm font-medium text-gray-500 transition-colors hover:text-blue-600">Dashboard</a>
+          
+          <button (click)="onLogout()" class="text-sm font-medium text-red-500 transition-colors hover:text-red-700 cursor-pointer">
+            Logout
+          </button>
+        } @else {
+          <!-- Not loged in -->
+          <a routerLink="/login" class="text-sm font-medium text-gray-500 transition-colors hover:text-blue-600">Login</a>
+          <a routerLink="/register" class="text-sm font-medium text-gray-500 transition-colors hover:text-blue-600">Sign Up</a>
+        }
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,13 +1,48 @@
-<form [formGroup]="shortUrlForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label>Paste your link here</label>
-    <input type="text" placeholder="Paste link here" formControlName="input">
-    <button type="submit">Submit</button>
+<form [formGroup]="shortUrlForm" (ngSubmit)="onSubmit()"
+  class="mx-auto w-full max-w-lg rounded-md border border-gray-200 bg-white p-6 sm:p-8">
+
+  <!-- Lien long -->
+  <div class="border-b border-gray-200 pb-4 transition-colors focus-within:border-blue-600">
+    <label for="long-url" class="block text-xs font-medium tracking-wide text-gray-500">Paste your link here</label>
+    <div class="mt-2 flex items-center gap-3">
+      <input
+        id="long-url"
+        type="text"
+        inputmode="url"
+        autocomplete="off"
+        placeholder="https://example.com/very/long/link"
+        formControlName="input"
+        class="w-full text-gray-900 placeholder:text-gray-300 focus:outline-none"
+      />
+      <button
+        type="submit"
+        class="shrink-0 cursor-pointer rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+      >
+        Submit
+      </button>
+    </div>
   </div>
 
-  <div>
-    <input type="text" formControlName="result" readonly>
-    <button type="button" (click)="copyResult()">Copy</button>
+  <!-- Lien court -->
+  <div class="pt-4">
+    <label for="short-url" class="block text-xs font-medium tracking-wide text-gray-500">Your short link</label>
+    <div class="mt-2 flex items-center gap-3">
+      <input
+        id="short-url"
+        type="text"
+        placeholder="Your short link will appear here"
+        formControlName="result"
+        readonly
+        class="w-full text-gray-700 placeholder:text-gray-300 focus:outline-none"
+      />
+      <button
+        type="button"
+        (click)="copyResult()"
+        class="shrink-0 cursor-pointer rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-blue-600 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+      >
+        {{ isCopied() ? 'Copied' : 'Copy' }}
+      </button>
+    </div>
   </div>
 
 </form>

@@ -29,6 +29,10 @@ export class LoginPage {
       this.authService.loginAction(this.loginForm.value).subscribe({
         next: (response) => {
           localStorage.setItem('auth_token', response.token);
+          
+          // Update the signal for login state
+          this.authService.isLoggedIn.set(true)
+          
           this.router.navigate(['/dashboard'])
         },
 

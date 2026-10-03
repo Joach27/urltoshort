@@ -1,23 +1,48 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label>Username</label>
-    <input type="text" formControlName="username">
+<div class="flex min-h-screen items-center justify-center bg-gray-50 px-6 py-12">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-full max-w-sm">
+    <header class="mb-8">
+      <h1 class="text-2xl font-semibold tracking-tight text-gray-900">Sign in</h1>
+      <p class="mt-1 text-sm text-gray-500">Enter your credentials to continue.</p>
+    </header>
 
-    @if (loginForm.get('username')?.invalid && loginForm.get('username')?.touched){
-      <p class="error-text">Invalid Username</p>
-    }
-  </div>
-  
-  <div>
-    <label>Password</label>
-    <input type="password" formControlName="password">
+    <div class="border-b border-gray-200 py-3 transition-colors focus-within:border-blue-600">
+      <label for="username" class="block text-xs font-medium tracking-wide text-gray-500">Username</label>
+      <input
+        id="username"
+        type="text"
+        formControlName="username"
+        autocomplete="username"
+        class="mt-1 w-full text-gray-900 placeholder:text-gray-300 focus:outline-none"
+      />
+      @if (loginForm.get('username')?.invalid && loginForm.get('username')?.touched) {
+        <p class="mt-1 text-xs text-red-600">Invalid Username</p>
+      }
+    </div>
 
-    @if (loginForm.get('password')?.invalid){
-      <p class="error-text">Invalid Password</p>
+    <div class="border-b border-gray-200 py-3 transition-colors focus-within:border-blue-600">
+      <label for="password" class="block text-xs font-medium tracking-wide text-gray-500">Password</label>
+      <input
+        id="password"
+        type="password"
+        formControlName="password"
+        autocomplete="current-password"
+        class="mt-1 w-full text-gray-900 placeholder:text-gray-300 focus:outline-none"
+      />
+      @if (loginForm.get('password')?.invalid) {
+        <p class="mt-1 text-xs text-red-600">Invalid Password</p>
+      }
+    </div>
+
+    @if (errorMessage) {
+      <p class="mt-4 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{{ errorMessage }}</p>
     }
-  </div>
-  @if (errorMessage){
-    <p class="error-text">{{ errorMessage }}</p> 
-  }
-  <button [disabled]="loginForm.invalid" type="submit">Login</button>
-</form>
+
+    <button
+      type="submit"
+      [disabled]="loginForm.invalid"
+      class="mt-8 w-full cursor-pointer rounded-md bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+    >
+      Login
+    </button>
+  </form>
+</div>

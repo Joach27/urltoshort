@@ -37,6 +37,7 @@ public class SecurityConfig {
                 .requestMatchers("/h2-console/**").permitAll() // Database console
                 .requestMatchers("/api/v1/auth/**").permitAll() // Login & account creation
                 .requestMatchers(HttpMethod.GET, "/*").permitAll() // Short link redirection
+                .requestMatchers("/api/v1/links/shorten").permitAll() // Create short link
                 .anyRequest().authenticated() // Everything else requires a token (Analytics, Link creation)
             )
             .sessionManagement(session -> session

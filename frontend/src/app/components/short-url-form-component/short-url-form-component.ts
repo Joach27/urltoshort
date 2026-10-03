@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LinkService } from '../../services/link';
 
 @Component({
   imports: [ReactiveFormsModule],
@@ -13,25 +14,39 @@ export class ShortUrlFormComponent {
     result: new FormControl({value: '', disabled: true})
   })
 
+  // Copy state
+  isCopied = signal(false);
+
+  // Inject link service
+  private linkService = inject(LinkService);
+
   onSubmit() {
     const input = this.shortUrlForm.value.input;
     if (!input) {
       return;
     }
     
-    const result = this.getResult(input);
-    this.shortUrlForm.controls.result.setValue(result);
+    this.linkService.shortenUrl(input!).subscribe({
+      next: (response) => {
+        this.shortUrlForm.controls.result.setValue(response.shortUrl)
+      },
+
+      error: (err) => {
+        console.error(err);
+      }
+    })
+
+    
   }
 
   copyResult(): void{
     const result = this.shortUrlForm.controls.result.value;
 
     if (result) {
-      navigator.clipboard.writeText(result);
+      navigator.clipboard.writeText(result).then(() => {
+        this.isCopied.set(true);
+        setTimeout(() => this.isCopied.set(false), 2000);
+      });
     }
-  }
-
-  getResult(input: string): string{
-    return "Logic";
   }
 }
