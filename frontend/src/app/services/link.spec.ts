@@ -1,12 +1,16 @@
 import { TestBed } from '@angular/core/testing';
-import { Link } from './link';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { LinkService } from './link';
 
-describe('Link', () => {
-  let service: Link;
+describe('LinkService', () => {
+  let service: LinkService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(Link);
+    TestBed.configureTestingModule({
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    });
+    service = TestBed.inject(LinkService);
   });
 
   it('should be created', () => {

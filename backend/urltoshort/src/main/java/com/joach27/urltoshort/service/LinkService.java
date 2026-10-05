@@ -60,18 +60,22 @@ public class LinkService {
 
 		return links.stream()
             .map(link -> new LinkResponse(
+                link.getId(),
 				link.getTargetUrl(), 
 				baseUrl + "/" + link.getSlug()
 			))
 			.toList();
 	}
 
-	// get link for particular user
-	public List<LinkResponse> getLinkByUserId(Long userId){
-	    List<Link> links = linkRepository.findByUserId(userId);
+	// get links for particular user
+	public List<LinkResponse> getLinkByUserId(){
+	    User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+	    List<Link> links = linkRepository.findByUserId(currentUser.getId());
 
 		return links.stream()
 	        .map(link -> new LinkResponse(
+				link.getId(),
 				link.getTargetUrl(), 
 				baseUrl + "/" + link.getSlug()
 			))
@@ -115,6 +119,7 @@ public class LinkService {
 
 		// Construct the response
 		LinkResponse response = new LinkResponse(
+            link.getId(),
 		    targetLink, 
 			shortUrl
 		);

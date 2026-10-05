@@ -1,9 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { heroArrowTopRightOnSquare } from '@ng-icons/heroicons/outline';
 import { LinkService } from '../../services/link';
 
 @Component({
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgIcon],
+  viewProviders: [provideIcons({ heroArrowTopRightOnSquare })],
   selector: 'app-short-url-form-component',
   styleUrl: './short-url-form-component.css',
   templateUrl: './short-url-form-component.html',
@@ -17,6 +20,10 @@ export class ShortUrlFormComponent {
   // Copy state
   isCopied = signal(false);
 
+  // Short link result, exposed as a signal so the template reacts
+  // (the app runs zoneless, a plain FormControl value does not trigger CD)
+  shortUrl = signal<string>('');
+
   // Inject link service
   private linkService = inject(LinkService);
 
@@ -29,6 +36,7 @@ export class ShortUrlFormComponent {
     this.linkService.shortenUrl(input!).subscribe({
       next: (response) => {
         this.shortUrlForm.controls.result.setValue(response.shortUrl)
+        this.shortUrl.set(response.shortUrl)
       },
 
       error: (err) => {
@@ -40,7 +48,7 @@ export class ShortUrlFormComponent {
   }
 
   copyResult(): void{
-    const result = this.shortUrlForm.controls.result.value;
+    const result = this.shortUrl();
 
     if (result) {
       navigator.clipboard.writeText(result).then(() => {

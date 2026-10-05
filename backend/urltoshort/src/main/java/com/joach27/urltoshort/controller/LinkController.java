@@ -1,8 +1,11 @@
 package com.joach27.urltoshort.controller;
 
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,5 +37,11 @@ public class LinkController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(response);
+	}
+
+	// Get link for a particular user
+	@GetMapping
+	public ResponseEntity<List<LinkResponse>> getUserLinks(){
+        return ResponseEntity.ok(linkService.getLinkByUserId());
 	}
 }

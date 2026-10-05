@@ -26,7 +26,7 @@ public class AnalyticsService {
 		this.linkRepository = linkRepository;
 	}
 
-	// Get total clik
+	// Get total cliks
 	public LinkAnalyticsResponse getAnalytics(Long linkId) {
 
         // 1. Get current authenticated user
@@ -34,7 +34,7 @@ public class AnalyticsService {
 	
         // 2. Verify if link exists
         Link link = linkRepository.findById(linkId)
-                .orElseThrow(() -> new RuntimeException("Lien introuvable"));
+                .orElseThrow(() -> new RuntimeException("Link Not Found"));
 	
         // 3. Verify is link belongs to user
         if (!link.getUser().getId().equals(currentUser.getId())) {

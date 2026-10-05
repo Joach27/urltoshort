@@ -1,4 +1,4 @@
 package com.joach27.urltoshort.dto;
 
-public record LinkResponse(String targetUrl, String shortUrl) {
+public record LinkResponse(Long linkId, String targetUrl, String shortUrl) {
 }

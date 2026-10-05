@@ -1,1 +1,51 @@
-<p>dashboard works!</p>
+<div class="flex min-h-screen bg-gray-50 px-6 py-12">
+  <div class="max-w-5xl mx-auto">
+    <h1 class="text-3xl font-bold mb-6 text-center">Dashboard</h1>
+
+    @if (isLoading()) {
+      <p class="text-gray-500">Loading links for you...</p>
+    } @else if (links().length === 0) {
+      <div class="bg-gray-50 p-6 rounded-lg text-center">
+        <p class="text-gray-600 mb-4">You don't have any short link.</p>
+        <a routerLink="/" class="text-blue-600 font-medium hover:underline cursor-pointer">Create a short link</a>
+      </div>
+    } @else {
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-gray-100 text-gray-700">
+              <th class="p-3 border-b">Original URL</th>
+              <th class="p-3 border-b">Short Link</th>
+              <th class="p-3 border-b">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- La boucle @for d'Angular : le "track" est obligatoire pour les performances -->
+            @for (link of links(); track link.linkId) {
+              <tr class="border-b hover:bg-gray-50">
+                <td class="p-3 truncate max-w-xs" [title]="link.originalUrl">
+                  {{ link.targetUrl }}
+                </td>
+                <td class="p-3">
+                  <a [href]="link.shortUrl" target="_blank" class="text-blue-600 hover:underline">
+                    {{ link.shortUrl }}
+                  </a>
+                </td>
+                <td class="p-3">
+                  <button class="cursor-pointer" (click)="openAnalytics(link.linkId, link.shortUrl)"> Get Analytics </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</div>
+
+<app-analytics-modal-component
+  [isOpen]="isModalOpen()"
+  [title]="'Analytics : ' + selectedShortLink()"
+  [linkId]="selectedLinkId()"
+  (close)="closeModal()"
+></app-analytics-modal-component>

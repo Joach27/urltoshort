@@ -33,15 +33,27 @@
         placeholder="Your short link will appear here"
         formControlName="result"
         readonly
-        class="w-full text-gray-700 placeholder:text-gray-300 focus:outline-none"
+        class="w-full min-w-0 text-gray-700 placeholder:text-gray-300 focus:outline-none"
       />
+      @if (shortUrl(); as url) {
+        <a
+          [href]="url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex shrink-0 cursor-pointer items-center gap-1.5 text-sm font-medium text-gray-700 transition-colors hover:text-blue-600"
+        >
+          <ng-icon name="heroArrowTopRightOnSquare" size="1rem" />
+          Open
+        </a>
+      }
       <button
         type="button"
         (click)="copyResult()"
-        class="shrink-0 cursor-pointer rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-blue-600 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+        class="shrink-0 cursor-pointer rounded-md border-2 border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-blue-600 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
       >
         {{ isCopied() ? 'Copied' : 'Copy' }}
       </button>
+      
     </div>
   </div>
 
