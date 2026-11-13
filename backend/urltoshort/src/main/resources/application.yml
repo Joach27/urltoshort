@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: urltoshort
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/urltoshort}
+    username: ${DB_USER:urltoshort_user}
+    password: ${DB_PASSWORD:changeme}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+app:
+  sqids:
+    alphabet: ${SQIDS_ALPHABET:abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789}
+  base-url: ${APP_BASE_URL:http://localhost:8080}
+
+geoip:
+  database: classpath:geoip/GeoLite2-Country.mmdb
+
+application:
+  security:
+    jwt:
+      secret-key: ${JWT_SECRET:0000000000000000000000000000000000000000000000000000000000000000}
+      expiration: 86400000
