@@ -25,6 +25,8 @@ coverage/
 !.env.example
 application-local.properties
 **/application-local.properties
+application.yml
+!application.yml.example
 
 ### --- Logs ---
 logs/
