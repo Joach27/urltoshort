@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Service, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Service()
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/v1/auth';
+  private apiUrl = `${environment.apiUrl}/api/v1/auth`;
   private router = inject(Router)
   private http = inject(HttpClient);
 

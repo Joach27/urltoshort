@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 // The backend serializes its Map<Device, Long> and Map<String, Long> as JSON
 // objects, so both are records keyed by name (e.g. { "MOBILE": 3 }).
@@ -15,7 +16,7 @@ interface LinkAnalytics {
 export class LinkService {
   private http = inject(HttpClient);
   
-  private apiUrl = 'http://localhost:8080/api/v1/links'; 
+  private apiUrl = `${environment.apiUrl}/api/v1/links`; 
 
   shortenUrl(targetUrl: string): Observable<any> {
     // Request body to much the dto in the backend
