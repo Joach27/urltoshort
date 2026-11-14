@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: urltoshort-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: urltoshort
+      POSTGRES_USER: urltoshort_user
+      POSTGRES_PASSWORD: changeme
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
