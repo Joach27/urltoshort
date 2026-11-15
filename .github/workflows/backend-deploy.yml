@@ -5,9 +5,8 @@ on:
     branches:
       - main
     paths:
-      - 'backend/urltoshort/**'
+      - 'backend/**'
       - '.github/workflows/backend-deploy.yml'
-      -  'backend/**'
   workflow_dispatch:
 
 jobs:
@@ -27,6 +26,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: 'maven'
+          cache-dependency-path: backend/urltoshort/pom.xml
 
       - name: Build with Maven
         run: mvn clean package
